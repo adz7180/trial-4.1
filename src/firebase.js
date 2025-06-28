@@ -1,27 +1,27 @@
 // src/firebase.js
 
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
+import { initializeApp, getApps } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAmjrr3NJok1lBtPfncRg73CLEMqF0HP1k",
   authDomain: "hexanest-c98dd.firebaseapp.com",
   projectId: "hexanest-c98dd",
-  storageBucket: "hexanest-c98dd.firebasestorage.app",
+  storageBucket: "hexanest-c98dd.appspot.com",
   messagingSenderId: "236347193395",
   appId: "1:236347193395:web:7ac1f6b806ab9eec6bcb46",
   measurementId: "G-3FDPF67LQC"
 };
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+// Initialize Firebase
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
 
-export const auth = firebase.auth();
-export const firestore = firebase.firestore();
+// Services
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-// Assign roles based on email
+// Role Checking Logic
 export const checkUserRole = async (user) => {
   const adminEmail = "adamhaymour@gmail.com";
   const lifetimeFreeEmail = "rockwellestatehomes@yahoo.ca";
@@ -34,4 +34,4 @@ export const checkUserRole = async (user) => {
   return 'standard';
 };
 
-export default firebase;
+export { auth, db };
