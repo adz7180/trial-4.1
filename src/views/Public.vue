@@ -25,7 +25,11 @@
     <!-- 3D Viewer & Customizer -->
     <div v-if="selectedBuild" class="workspace">
       <div class="viewer">
-        <SceneViewer :modelUrl="selectedBuild.modelUrl" @set-material="applyMaterial" />
+        <SceneViewer
+          ref="sceneViewer"
+          :modelUrl="selectedBuild.modelUrl"
+          @set-material="applyMaterial"
+        />
       </div>
       <div class="customizer">
         <CustomizationPanel @set-material="applyMaterial" />
@@ -62,7 +66,9 @@ export default {
       this.selectedBuild = build;
     },
     applyMaterial(payload) {
-      this.$refs.sceneViewer?.applyMaterial(payload);
+      if (this.$refs.sceneViewer) {
+        this.$refs.sceneViewer.applyMaterial(payload);
+      }
     }
   }
 };
