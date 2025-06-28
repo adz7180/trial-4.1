@@ -1,68 +1,205 @@
 <template>
   <div class="scan">
-    <h1>Scan Your Blueprint</h1>
-    <p>Upload a floor plan and let AI turn it into a walkable 3D model instantly.</p>
-    <input type="file" @change="handleFile" class="file-input" />
-    <button @click="upload" class="upload">Upload & Generate 3D Model</button>
+    <div class="header">
+      <h1>Scan Blueprint to 3D</h1>
+      <p>
+        Upload your 2D floor plan or blueprint. Our AI instantly generates a
+        fully walkable, hyper-realistic 3D model that you can fully customize.
+      </p>
+    </div>
 
-    <div v-if="modelGenerated">
-      <SceneViewer :modelUrl="modelUrl" />
-      <CustomizationPanel />
+    <!-- Upload Section -->
+    <div class="upload-area">
+      <label for="file-upload" class="upload-box">
+        <input type="file" id="file-upload" @change="handleFileUpload" hidden />
+        <div v-if="!previewImage">
+          <img src="@/assets/scan-icon.png" alt="Scan Icon" />
+          <p>Click to upload your blueprint</p>
+        </div>
+        <div v-else>
+          <img :src="previewImage" class="preview-image" />
+          <p>Blueprint Loaded</p>
+        </div>
+      </label>
+
+      <button
+        class="generate-btn"
+        :disabled="!blueprintFile"
+        @click="generateModel"
+      >
+        Generate 3D Model
+      </button>
+    </div>
+
+    <!-- 3D Viewer + Customizer -->
+    <div v-if="modelUrl" class="workspace">
+      <div class="viewer">
+        <SceneViewer :modelUrl="modelUrl" @set-material="applyMaterial" />
+      </div>
+      <div class="customizer">
+        <CustomizationPanel @set-material="applyMaterial" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import SceneViewer from '../components/SceneViewer.vue'
-import CustomizationPanel from '../components/CustomizationPanel.vue'
+import SceneViewer from '@/components/SceneViewer.vue';
+import CustomizationPanel from '@/components/CustomizationPanel.vue';
 
 export default {
-  components: {
-    SceneViewer,
-    CustomizationPanel
-  },
+  name: 'Scan',
+  components: { SceneViewer, CustomizationPanel },
   data() {
     return {
-      modelUrl: '/models/house3000.glb',
-      modelGenerated: false
-    }
+      blueprintFile: null,
+      previewImage: null,
+      modelUrl: null
+    };
   },
   methods: {
-    handleFile(event) {
+    handleFileUpload(event) {
       const file = event.target.files[0];
       if (file) {
-        console.log('File uploaded:', file.name);
+        this.blueprintFile = file;
+        this.previewImage = URL.createObjectURL(file);
       }
     },
-    upload() {
-      this.modelGenerated = true;
+    async generateModel() {
+      // 🔥 Connect this to your AI blueprint parser backend
+      const generatedModelPath = `/models/generated/scan-${Date.now()}.glb`;
+      this.modelUrl = generatedModelPath;
+    },
+    applyMaterial(payload) {
+      this.$refs.sceneViewer?.applyMaterial(payload);
     }
   }
-}
+};
 </script>
 
 <style scoped>
 .scan {
-  width: 100%;
-  padding: 50px;
+  background: radial-gradient(circle at top, #f9fbfd, #e7ebf0);
+  min-height: 100vh;
+  padding: 50px 70px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
   text-align: center;
+  margin-bottom: 40px;
 }
 
-.file-input {
-  padding: 10px;
-  margin: 20px 0;
+.header h1 {
+  font-size: 3rem;
+  background: linear-gradient(to right, #007bff, #00b7ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.upload {
-  padding: 10px 20px;
-  background-color: #007bff;
-  border: none;
-  color: white;
+.header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 50px;
+}
+
+.upload-box {
+  background: rgba(255, 255, 255, 0.85);
+  border: 2px dashed #007bff;
+  border-radius: 20px;
+  padding: 40px 60px;
   cursor: pointer;
-  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
 }
 
-.upload:hover {
-  opacity: 0.8;
+.upload-box:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-4px);
+}
+
+.upload-box img {
+  width: 60px;
+  margin-bottom: 12px;
+}
+
+.upload-box p {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.preview-image {
+  width: 200px;
+  border-radius: 16px;
+  margin-bottom: 12px;
+  object-fit: cover;
+}
+
+.generate-btn {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #007bff, #00b7ff);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 14px 40px rgba(0, 123, 255, 0.3);
+  transition: 0.3s;
+}
+
+.generate-btn:hover {
+  transform: translateY(-4px);
+}
+
+.generate-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.workspace {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.viewer {
+  flex: 2;
+  background: white;
+  border-radius: 30px;
+  padding: 20px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
+}
+
+.customizer {
+  flex: 1.2;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 30px;
+  padding: 24px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(25px);
+}
+
+@media (max-width: 1200px) {
+  .workspace {
+    flex-direction: column;
+  }
+
+  .viewer,
+  .customizer {
+    width: 100%;
+  }
 }
 </style>
