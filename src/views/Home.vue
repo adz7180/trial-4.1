@@ -18,7 +18,7 @@
       <div class="hero-content">
         <h1>Design Your Dream Home in <span>Ultra-Realistic 3D</span></h1>
         <p>
-          Scan, customize, and visualize your perfect home with unmatched realism. 
+          Scan, customize, and visualize your perfect home with unmatched realism.
           Powered by AI. Built for dreamers.
         </p>
         <div class="buttons">
@@ -166,48 +166,4 @@
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
 }
 
-.features {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin: 80px 60px;
-}
-
-.feature-card {
-  background: white;
-  border-radius: 20px;
-  padding: 30px;
-  width: 300px;
-  text-align: center;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s;
-}
-
-.feature-card:hover {
-  transform: translateY(-8px);
-}
-
-.feature-card img {
-  width: 60px;
-  margin-bottom: 20px;
-}
-
-.feature-card h3 {
-  margin-bottom: 10px;
-  font-size: 1.4rem;
-}
-
-.feature-card p {
-  color: #666;
-  font-size: 1rem;
-}
-
-.footer {
-  text-align: center;
-  padding: 20px;
-  background: #fafafa;
-  border-top: 1px solid #ddd;
-  margin-top: auto;
-}
-</style>
+.fea
