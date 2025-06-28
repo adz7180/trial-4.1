@@ -1,222 +1,173 @@
 <template>
   <div class="home">
-    <!-- Navigation Bar -->
-    <nav class="navbar">
+    <div class="navbar">
       <div class="logo">HexaNest</div>
-      <ul class="nav-links">
-        <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/scan">Scan Blueprint</router-link></li>
-        <li><router-link to="/customize">Customize</router-link></li>
-        <li><router-link to="/public">Public Builds</router-link></li>
-        <li><router-link to="/admin">Admin</router-link></li>
-      </ul>
-    </nav>
+      <div class="nav-links">
+        <router-link to="/scan">Scan Blueprint</router-link>
+        <router-link to="/customize">Customize</router-link>
+        <router-link to="/public">Public Builds</router-link>
+        <router-link to="/explore">Explore</router-link>
+      </div>
+    </div>
 
-    <!-- Hero Section -->
-    <header class="hero">
+    <div class="hero">
       <div class="hero-content">
-        <h1>Design Your Dream Home in Real-Time</h1>
-        <p>Walk through and customize homes with ultra-realistic 4K visuals.</p>
-        <div class="actions">
-          <router-link to="/scan" class="btn primary">Try Free</router-link>
-          <router-link to="/demo" class="btn secondary">Watch Demo</router-link>
+        <h1>Design Your Dream Home in Ultra-Realistic 3D</h1>
+        <p>
+          Scan, customize, and visualize your perfect home with hyper-realism.
+          Fully interactive. Fully yours.
+        </p>
+        <div class="buttons">
+          <router-link to="/scan" class="btn primary">Scan Blueprint</router-link>
+          <router-link to="/customize" class="btn secondary">Start Customizing</router-link>
         </div>
       </div>
       <div class="hero-image">
-        <img src="@/assets/hero-preview.png" alt="Home Preview">
+        <img src="/hero-preview.png" alt="Home Preview" />
       </div>
-    </header>
+    </div>
 
-    <!-- Features Section -->
-    <section class="features">
-      <h2>Features</h2>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <img src="@/assets/scan-icon.png" alt="Scan Blueprints">
-          <h3>Scan Blueprints</h3>
-          <p>Instantly convert blueprints into 3D walkable models.</p>
-        </div>
-        <div class="feature-card">
-          <img src="@/assets/edit-icon.png" alt="Real-Time Editing">
-          <h3>Real-Time Editing</h3>
-          <p>Modify floor plans, interiors, and materials live.</p>
-        </div>
-        <div class="feature-card">
-          <img src="@/assets/drag-icon.png" alt="Drag & Drop">
-          <h3>Drag & Drop</h3>
-          <p>Customize with furniture, windows, walls, and more.</p>
-        </div>
-        <div class="feature-card">
-          <img src="@/assets/share-icon.png" alt="Share to Contractors">
-          <h3>Share to Contractors</h3>
-          <p>Send your design directly to builders in your area.</p>
-        </div>
+    <div class="features">
+      <div class="feature-card">
+        <img src="/icons/scan-icon.png" />
+        <h3>Scan to 3D</h3>
+        <p>Upload floor plans and instantly generate walkable 3D models.</p>
       </div>
-    </section>
+      <div class="feature-card">
+        <img src="/icons/edit-icon.png" />
+        <h3>Fully Customizable</h3>
+        <p>Every wall, floor, roof, window, and material — fully editable.</p>
+      </div>
+      <div class="feature-card">
+        <img src="/icons/share-icon.png" />
+        <h3>Public & Private Builds</h3>
+        <p>Browse public projects or create private masterpieces.</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2025 HexaNest — The Future of Home Design</p>
+    </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Home'
-};
-</script>
-
 <style scoped>
-/* Navigation Bar */
+.home {
+  background: linear-gradient(to bottom, #f9fbfd, #eaeef3);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .navbar {
-  backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.04);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 999;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 60px;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.7);
+  border-bottom: 1px solid #ddd;
 }
 
 .logo {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: white;
+  font-size: 26px;
+  font-weight: bold;
 }
 
 .nav-links {
-  list-style: none;
   display: flex;
-  gap: 32px;
+  gap: 30px;
 }
 
-.nav-links li a {
+.nav-links a {
   text-decoration: none;
-  color: white;
+  color: #333;
   font-weight: 500;
-  position: relative;
-  transition: all 0.3s ease;
 }
 
-.nav-links li a::after {
-  content: '';
-  display: block;
-  height: 2px;
-  background: white;
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-  transform-origin: right;
-}
-
-.nav-links li a:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-.nav-links li a:hover {
-  color: #aaa;
-}
-
-/* Page Layout */
-.home {
-  background: #0f1116;
-  color: white;
-  font-family: 'Segoe UI', sans-serif;
+.nav-links a:hover {
+  color: #007bff;
 }
 
 .hero {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 120px 120px 80px;
-  background: linear-gradient(to right, #0f1116, #1a1c22);
-  margin-top: 80px;
+  align-items: center;
+  padding: 60px 80px;
 }
 
 .hero-content {
   max-width: 50%;
 }
 
-.hero h1 {
-  font-size: 3.5rem;
+.hero-content h1 {
+  font-size: 3.8rem;
   margin-bottom: 20px;
+  line-height: 1.2;
 }
 
-.hero p {
+.hero-content p {
   font-size: 1.2rem;
+  color: #555;
   margin-bottom: 30px;
 }
 
-.actions {
+.buttons {
   display: flex;
   gap: 20px;
 }
 
 .btn {
-  padding: 14px 30px;
-  border-radius: 50px;
+  padding: 12px 24px;
+  border-radius: 12px;
   text-decoration: none;
-  font-weight: 600;
-  transition: background 0.3s ease;
+  font-weight: bold;
+  transition: all 0.3s;
 }
 
 .btn.primary {
-  background: #0078f0;
+  background-color: #007bff;
   color: white;
 }
 
 .btn.primary:hover {
-  background: #005ec7;
+  background-color: #0065d8;
 }
 
 .btn.secondary {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #28a745;
   color: white;
 }
 
 .btn.secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background-color: #218838;
 }
 
 .hero-image img {
-  width: 520px;
-  border-radius: 20px;
-  box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+  width: 550px;
+  border-radius: 30px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
 }
 
-/* Features */
 .features {
-  padding: 80px 120px;
-  background: #13151c;
-}
-
-.features h2 {
-  text-align: center;
-  font-size: 2.8rem;
-  margin-bottom: 60px;
-}
-
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  display: flex;
+  justify-content: center;
   gap: 40px;
+  margin: 80px 60px;
 }
 
 .feature-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: white;
   border-radius: 20px;
   padding: 30px;
+  flex: 1;
   text-align: center;
-  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s;
 }
 
 .feature-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-8px);
 }
 
 .feature-card img {
@@ -225,11 +176,20 @@ export default {
 }
 
 .feature-card h3 {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   font-size: 1.4rem;
 }
 
 .feature-card p {
-  color: #c2c4c8;
+  color: #666;
+  font-size: 1rem;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: #fafafa;
+  border-top: 1px solid #ddd;
+  margin-top: auto;
 }
 </style>
