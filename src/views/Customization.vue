@@ -21,7 +21,7 @@
     <!-- 3D Viewer + Customization Panel -->
     <div class="workspace">
       <div class="viewer-panel">
-        <SceneViewer :modelUrl="modelUrl" @set-material="applyMaterial" />
+        <SceneViewer :modelUrl="modelUrl" ref="sceneViewer" />
       </div>
       <div class="customization-panel">
         <CustomizationPanel @set-material="applyMaterial" />
@@ -58,7 +58,9 @@ export default {
       this.modelUrl = `/models/house${size}.glb`;
     },
     applyMaterial(payload) {
-      this.$refs.sceneViewer?.applyMaterial(payload);
+      if (this.$refs.sceneViewer) {
+        this.$refs.sceneViewer.applyMaterial(payload);
+      }
     }
   }
 };
@@ -150,7 +152,8 @@ export default {
     flex-direction: column;
   }
 
-  .viewer-panel, .customization-panel {
+  .viewer-panel,
+  .customization-panel {
     width: 100%;
   }
 }
