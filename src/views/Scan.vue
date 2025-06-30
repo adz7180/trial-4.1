@@ -34,7 +34,7 @@
     <!-- 3D Viewer + Customizer -->
     <div v-if="modelUrl" class="workspace">
       <div class="viewer">
-        <SceneViewer :modelUrl="modelUrl" @set-material="applyMaterial" />
+        <SceneViewer :modelUrl="modelUrl" ref="sceneViewer" />
       </div>
       <div class="customizer">
         <CustomizationPanel @set-material="applyMaterial" />
@@ -66,12 +66,13 @@ export default {
       }
     },
     async generateModel() {
-      // 🔥 Connect this to your AI blueprint parser backend
       const generatedModelPath = `/models/generated/scan-${Date.now()}.glb`;
       this.modelUrl = generatedModelPath;
     },
     applyMaterial(payload) {
-      this.$refs.sceneViewer?.applyMaterial(payload);
+      if (this.$refs.sceneViewer) {
+        this.$refs.sceneViewer.applyMaterial(payload);
+      }
     }
   }
 };
