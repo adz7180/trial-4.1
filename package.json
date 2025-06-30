@@ -15,7 +15,8 @@
     "regenerator-runtime": "^0.13.7",
     "axios": "^0.21.1",
     "three": "^0.155.0",
-    "bootstrap": "^5.3.0"
+    "bootstrap": "^5.3.0",
+    "firebase": "^9.22.2"
   },
   "devDependencies": {
     "@vue/cli-service": "^4.5.0",
