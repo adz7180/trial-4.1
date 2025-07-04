@@ -1,75 +1,124 @@
 <template>
-  <div class="public">
+  <div class="public-builds">
     <div class="header">
-      <h1>Explore Public Company Builds</h1>
-      <p>View fully customizable designs posted by companies.</p>
+      <h1>Explore Public Builds</h1>
+      <p>Browse homes shared by verified companies. Click any to fully edit in real-time.</p>
     </div>
 
-    <!-- Build List -->
-    <div class="build-list">
+    <div class="build-grid">
       <div
         v-for="build in publicBuilds"
         :key="build.id"
         class="build-card"
-        @click="selectBuild(build)"
+        @click="openBuild(build)"
       >
-        <img :src="build.previewImage" alt="Build Preview" />
-        <div class="build-info">
+        <img :src="build.thumbnailUrl" alt="Build Preview" />
+        <div class="info">
           <h3>{{ build.name }}</h3>
-          <p>{{ build.description }}</p>
-          <div class="company-tag">{{ build.company }}</div>
+          <p>{{ build.company }}</p>
         </div>
-      </div>
-    </div>
-
-    <!-- 3D Viewer & Customizer -->
-    <div v-if="selectedBuild" class="workspace">
-      <div class="viewer">
-        <SceneViewer
-          ref="sceneViewer"
-          :modelUrl="selectedBuild.modelUrl"
-          @set-material="applyMaterial"
-        />
-      </div>
-      <div class="customizer">
-        <CustomizationPanel @set-material="applyMaterial" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '@/firebase';
-import SceneViewer from '@/components/SceneViewer.vue';
-import CustomizationPanel from '@/components/CustomizationPanel.vue';
+import { firestore } from '@/firebase';
+import router from '@/router';
 
 export default {
   name: 'Public',
-  components: { SceneViewer, CustomizationPanel },
   data() {
     return {
-      publicBuilds: [],
-      selectedBuild: null
+      publicBuilds: []
     };
   },
-  async mounted() {
-    await this.fetchPublicBuilds();
+  async created() {
+    const snapshot = await firestore.collection('builds')
+      .where('visibility', '==', 'public')
+      .where('uploadedByRole', '==', 'company')
+      .get();
+
+    this.publicBuilds = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
   },
   methods: {
-    async fetchPublicBuilds() {
-      const q = query(collection(db, 'builds'), where('visibility', '==', 'public'));
-      const querySnapshot = await getDocs(q);
-      this.publicBuilds = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    },
-    selectBuild(build) {
-      this.selectedBuild = build;
-    },
-    applyMaterial(payload) {
-      if (this.$refs.sceneViewer) {
-        this.$refs.sceneViewer.applyMaterial(payload);
-      }
+    openBuild(build) {
+      router.push({ name: 'Customize', query: { model: build.modelUrl } });
     }
   }
 };
 </script>
+
+<style scoped>
+.public-builds {
+  min-height: 100vh;
+  padding: 60px 80px;
+  background: linear-gradient(to bottom, #f9fbfd, #e0e6ed);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  font-size: 3rem;
+  background: linear-gradient(to right, #007bff, #00b7ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.build-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.build-card {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(30px);
+}
+
+.build-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.1);
+}
+
+.build-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.build-card .info {
+  padding: 20px;
+  text-align: center;
+}
+
+.build-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.build-card p {
+  color: #666;
+  font-size: 0.95rem;
+}
+</style>
