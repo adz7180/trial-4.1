@@ -1,10 +1,11 @@
 <template>
   <div class="scan">
+    <!-- Header -->
     <div class="header">
       <h1>Scan Blueprint to 3D</h1>
       <p>
         Upload your 2D floor plan or blueprint. Our AI instantly generates a
-        fully walkable, hyper-realistic 3D model that you can fully customize.
+        fully walkable, hyper-realistic 3D model that you can fully customize in real time.
       </p>
     </div>
 
@@ -66,6 +67,7 @@ export default {
       }
     },
     async generateModel() {
+      //  Connect this to your AI backend API that converts blueprint to 3D
       const generatedModelPath = `/models/generated/scan-${Date.now()}.glb`;
       this.modelUrl = generatedModelPath;
     },
@@ -79,6 +81,12 @@ export default {
 </script>
 
 <style scoped>
+@import '@/assets/global.scss';
+
+body {
+  overflow-x: hidden;
+}
+
 .scan {
   background: radial-gradient(circle at top, #f9fbfd, #e7ebf0);
   min-height: 100vh;
@@ -87,23 +95,26 @@ export default {
   flex-direction: column;
 }
 
+/* Header */
 .header {
   text-align: center;
   margin-bottom: 40px;
 }
 
 .header h1 {
-  font-size: 3rem;
+  font-size: 3.2rem;
   background: linear-gradient(to right, #007bff, #00b7ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
 }
 
 .header p {
   color: #666;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
 }
 
+/* Upload Area */
 .upload-area {
   display: flex;
   flex-direction: column;
@@ -148,6 +159,7 @@ export default {
   object-fit: cover;
 }
 
+/* Generate Button */
 .generate-btn {
   padding: 14px 32px;
   border: none;
@@ -170,6 +182,7 @@ export default {
   box-shadow: none;
 }
 
+/* Workspace */
 .workspace {
   display: flex;
   gap: 40px;
