@@ -1,169 +1,154 @@
 <template>
   <div class="home">
-    <!-- Navbar -->
-    <div class="navbar">
-      <div class="logo">
-        <img src="@/assets/logo.png" alt="HexaNest Logo" />
-      </div>
-      <div class="nav-links">
-        <router-link to="/scan">Scan Blueprint</router-link>
-        <router-link to="/customize">Customize</router-link>
-        <router-link to="/public">Public Builds</router-link>
-        <router-link to="/explore">Explore</router-link>
-      </div>
-    </div>
-
-    <!-- Hero Section -->
     <div class="hero">
       <div class="hero-content">
-        <h1>Design Your Dream Home in <span>Ultra-Realistic 3D</span></h1>
-        <p>
-          Scan, customize, and visualize your perfect home with unmatched realism.
-          Powered by AI. Built for dreamers.
-        </p>
-        <div class="buttons">
+        <h1>Design Your Dream Home</h1>
+        <p>Scan blueprints. Customize in 3D. Build with confidence.</p>
+        <div class="hero-buttons">
           <router-link to="/scan" class="btn primary">Scan Blueprint</router-link>
-          <router-link to="/customize" class="btn secondary">Start Customizing</router-link>
+          <router-link to="/customize" class="btn secondary">Customize</router-link>
         </div>
       </div>
-      <div class="hero-image">
-        <img src="@/assets/hero-preview.png" alt="3D Home Preview" />
-      </div>
+      <img src="@/assets/hero-preview.png" class="hero-preview" />
     </div>
 
-    <!-- Features -->
     <div class="features">
-      <div class="feature-card">
-        <img src="@/assets/scan-icon.png" />
-        <h3>Scan to 3D</h3>
-        <p>Upload floor plans and instantly convert them into hyper-realistic 3D models.</p>
-      </div>
-      <div class="feature-card">
-        <img src="@/assets/edit-icon.png" />
-        <h3>Complete Customization</h3>
-        <p>Everything is editable. Walls, roofs, windows, floors, lighting — all in real time.</p>
-      </div>
-      <div class="feature-card">
-        <img src="@/assets/share-icon.png" />
-        <h3>Public & Private Builds</h3>
-        <p>Explore public projects or design private homes — share with clients or contractors.</p>
-      </div>
-      <div class="feature-card">
+      <div class="feature">
         <img src="@/assets/drag-icon.png" />
-        <h3>Drag & Drop Simplicity</h3>
-        <p>Move, resize, and edit elements in your home with smooth, intuitive controls.</p>
+        <h3>Drag & Edit</h3>
+        <p>Move windows, doors, walls, and furniture in real time.</p>
       </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-      <p>&copy; 2025 HexaNest — The Future of Home Design</p>
+      <div class="feature">
+        <img src="@/assets/share-icon.png" />
+        <h3>Share or Download</h3>
+        <p>Export your model or share it with contractors instantly.</p>
+      </div>
+      <div class="feature">
+        <img src="@/assets/edit-icon.png" />
+        <h3>Full Customization</h3>
+        <p>Change floors, lighting, walls, chandeliers, furniture, and more.</p>
+      </div>
     </div>
   </div>
 </template>
 
+<script>
+export default {
+  name: "Home"
+};
+</script>
+
 <style scoped>
-@import '@/assets/global.scss';
-
 .home {
-  background: linear-gradient(to bottom, #f9fbfd, #eaeef3);
+  background: linear-gradient(to bottom, #f5faff, #e0e7ef);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 60px;
-  backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.85);
-  border-bottom: 1px solid #ddd;
-}
-
-.logo img {
-  height: 40px;
-}
-
-.nav-links {
-  display: flex;
-  gap: 30px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  transition: 0.3s;
-}
-
-.nav-links a:hover {
-  color: #007bff;
+  padding: 60px 80px;
+  overflow-x: hidden;
 }
 
 .hero {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 80px 100px;
+  justify-content: space-between;
+  gap: 60px;
+  padding-bottom: 80px;
+  border-bottom: 2px solid #eef2f6;
 }
 
 .hero-content {
-  max-width: 50%;
+  max-width: 600px;
 }
 
 .hero-content h1 {
-  font-size: 3.6rem;
-  line-height: 1.2;
-  margin-bottom: 20px;
-}
-
-.hero-content h1 span {
-  color: #007bff;
+  font-size: 4rem;
+  line-height: 1.1;
+  background: linear-gradient(to right, #007bff, #00b7ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
 }
 
 .hero-content p {
-  font-size: 1.2rem;
-  color: #555;
-  margin-bottom: 30px;
+  font-size: 1.25rem;
+  color: #666;
+  margin-top: 18px;
+  margin-bottom: 32px;
 }
 
-.buttons {
+.hero-buttons {
   display: flex;
   gap: 20px;
 }
 
 .btn {
-  padding: 14px 28px;
-  border-radius: 12px;
+  padding: 14px 32px;
+  font-size: 1rem;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 14px 36px rgba(0, 123, 255, 0.2);
   text-decoration: none;
-  font-weight: bold;
-  transition: all 0.3s;
+  text-align: center;
 }
 
 .btn.primary {
-  background-color: #007bff;
+  background: linear-gradient(135deg, #007bff, #00b7ff);
   color: white;
-}
-
-.btn.primary:hover {
-  background-color: #0065d8;
 }
 
 .btn.secondary {
-  background-color: #28a745;
-  color: white;
+  background: white;
+  border: 2px solid #007bff;
+  color: #007bff;
 }
 
 .btn.secondary:hover {
-  background-color: #218838;
+  background: #f0f8ff;
 }
 
-.hero-image img {
-  width: 500px;
-  border-radius: 30px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+.hero-preview {
+  max-width: 550px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
 }
 
-.fea
+.features {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 80px;
+  flex-wrap: wrap;
+}
+
+.feature {
+  flex: 1;
+  background: white;
+  padding: 40px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.feature:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.08);
+}
+
+.feature img {
+  width: 60px;
+  margin-bottom: 18px;
+}
+
+.feature h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.feature p {
+  color: #555;
+  font-size: 1rem;
+}
+</style>
