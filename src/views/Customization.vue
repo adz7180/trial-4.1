@@ -1,8 +1,9 @@
 <template>
   <div class="customize">
+    <!-- Header -->
     <div class="header">
       <h1>Customize Your Dream Home</h1>
-      <p>Choose a home size or load a model. Then fully customize every material in hyper-realistic 3D.</p>
+      <p>Select a home size to begin full customization in ultra-realistic 3D.</p>
     </div>
 
     <!-- House Size Selector -->
@@ -17,12 +18,12 @@
       </button>
     </div>
 
-    <!-- 3D Viewer + Customization Panel -->
-    <div class="workspace">
-      <div class="viewer-panel">
+    <!-- 3D Viewer and Customization Panel -->
+    <div class="workspace" v-if="modelUrl">
+      <div class="viewer">
         <SceneViewer ref="sceneViewer" :modelUrl="modelUrl" @set-material="applyMaterial" />
       </div>
-      <div class="customization-panel">
+      <div class="panel">
         <CustomizationPanel @set-material="applyMaterial" />
       </div>
     </div>
@@ -35,7 +36,10 @@ import CustomizationPanel from '@/components/CustomizationPanel.vue';
 
 export default {
   name: 'Customize',
-  components: { SceneViewer, CustomizationPanel },
+  components: {
+    SceneViewer,
+    CustomizationPanel
+  },
   data() {
     return {
       selectedSize: '',
@@ -51,18 +55,13 @@ export default {
       ]
     };
   },
-  mounted() {
-    if (this.$route.query.model) {
-      this.modelUrl = this.$route.query.model;
-    }
-  },
   methods: {
     selectSize(size) {
       this.selectedSize = size;
       this.modelUrl = `/models/house${size}.glb`;
     },
-    applyMaterial(payload) {
-      this.$refs.sceneViewer?.applyMaterial(payload);
+    applyMaterial(material) {
+      this.$refs.sceneViewer?.applyMaterial(material);
     }
   }
 };
@@ -70,9 +69,10 @@ export default {
 
 <style scoped>
 .customize {
-  background: linear-gradient(to bottom, #f5faff, #e2e8f0);
-  min-height: 100vh;
   padding: 60px 80px;
+  background: linear-gradient(to bottom, #fdfdfd, #eef1f5);
+  min-height: 100vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
 }
@@ -83,16 +83,17 @@ export default {
 }
 
 .header h1 {
-  font-size: 3.2rem;
-  background: linear-gradient(to right, #007bff, #00b7ff);
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #007bff, #00cfff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
 }
 
 .header p {
-  color: #555;
-  font-size: 1.15rem;
-  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #666;
 }
 
 .size-selector {
@@ -100,30 +101,31 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
 .size-btn {
-  background: white;
-  border: 2px solid #ddd;
-  border-radius: 18px;
-  padding: 14px 28px;
+  background: #ffffff;
+  border: 2px solid #cdd4e0;
+  padding: 12px 30px;
+  font-size: 1rem;
   font-weight: 600;
+  border-radius: 14px;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
 }
 
 .size-btn:hover {
-  background-color: #f0f4f9;
-  transform: translateY(-3px);
+  background: #f0f5fc;
+  transform: translateY(-2px);
 }
 
 .size-btn.active {
-  background: linear-gradient(135deg, #007bff, #00b7ff);
+  background: linear-gradient(135deg, #007bff, #00cfff);
   color: white;
   border: none;
-  box-shadow: 0 14px 36px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 12px 30px rgba(0, 123, 255, 0.3);
 }
 
 .workspace {
@@ -132,17 +134,17 @@ export default {
   align-items: flex-start;
 }
 
-.viewer-panel {
+.viewer {
   flex: 2;
-  background: white;
+  background: #fff;
   border-radius: 30px;
   padding: 20px;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
 }
 
-.customization-panel {
+.panel {
   flex: 1.2;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   border-radius: 30px;
   padding: 24px;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
@@ -154,8 +156,8 @@ export default {
     flex-direction: column;
   }
 
-  .viewer-panel,
-  .customization-panel {
+  .viewer,
+  .panel {
     width: 100%;
   }
 }
