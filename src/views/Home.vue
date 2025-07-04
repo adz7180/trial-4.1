@@ -1,58 +1,109 @@
 <template>
   <div class="home">
-    <div class="hero">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <img src="@/assets/logo.png" class="logo" />
+      <ul class="nav-links">
+        <li><router-link to="/scan">Scan to 3D</router-link></li>
+        <li><router-link to="/customize">Customize</router-link></li>
+        <li><router-link to="/public">Explore Public</router-link></li>
+      </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
       <div class="hero-content">
         <h1>Design Your Dream Home</h1>
-        <p>Scan blueprints. Customize in 3D. Build with confidence.</p>
-        <div class="hero-buttons">
+        <p>Scan, customize, and visualize homes in hyper-realistic 3D.</p>
+        <div class="buttons">
           <router-link to="/scan" class="btn primary">Scan Blueprint</router-link>
-          <router-link to="/customize" class="btn secondary">Customize</router-link>
+          <router-link to="/customize" class="btn secondary">Start Designing</router-link>
         </div>
       </div>
-      <img src="@/assets/hero-preview.png" class="hero-preview" />
-    </div>
-
-    <div class="features">
-      <div class="feature">
-        <img src="@/assets/drag-icon.png" />
-        <h3>Drag & Edit</h3>
-        <p>Move windows, doors, walls, and furniture in real time.</p>
+      <div class="hero-image">
+        <img src="@/assets/hero-preview.png" alt="Hero Preview" />
       </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
       <div class="feature">
-        <img src="@/assets/share-icon.png" />
-        <h3>Share or Download</h3>
-        <p>Export your model or share it with contractors instantly.</p>
+        <img src="@/assets/scan-icon.png" />
+        <h3>Scan Blueprints</h3>
+        <p>Upload 2D plans and convert them to 3D models instantly.</p>
       </div>
       <div class="feature">
         <img src="@/assets/edit-icon.png" />
-        <h3>Full Customization</h3>
-        <p>Change floors, lighting, walls, chandeliers, furniture, and more.</p>
+        <h3>Fully Customize</h3>
+        <p>Change floors, walls, furniture, lighting — every detail.</p>
       </div>
-    </div>
+      <div class="feature">
+        <img src="@/assets/share-icon.png" />
+        <h3>Explore & Share</h3>
+        <p>Publish your designs or explore community builds.</p>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Home"
+  name: 'Home'
 };
 </script>
 
 <style scoped>
-.home {
-  background: linear-gradient(to bottom, #f5faff, #e0e7ef);
-  min-height: 100vh;
-  padding: 60px 80px;
+@import '@/assets/global.scss';
+
+body {
   overflow-x: hidden;
 }
 
+.home {
+  width: 100%;
+  background: linear-gradient(to bottom, #f9fbfd, #e7ebf0);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 70px;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  width: 150px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links li a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #007bff;
+}
+
+/* Hero */
 .hero {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 60px;
-  padding-bottom: 80px;
-  border-bottom: 2px solid #eef2f6;
+  align-items: center;
+  padding: 70px;
 }
 
 .hero-content {
@@ -60,95 +111,113 @@ export default {
 }
 
 .hero-content h1 {
-  font-size: 4rem;
-  line-height: 1.1;
+  font-size: 3.8rem;
+  margin-bottom: 20px;
   background: linear-gradient(to right, #007bff, #00b7ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: 800;
 }
 
 .hero-content p {
-  font-size: 1.25rem;
-  color: #666;
-  margin-top: 18px;
-  margin-bottom: 32px;
+  color: #555;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
 }
 
-.hero-buttons {
+.hero-content .buttons {
   display: flex;
   gap: 20px;
 }
 
 .btn {
-  padding: 14px 32px;
-  font-size: 1rem;
+  padding: 14px 30px;
   border-radius: 14px;
-  font-weight: 600;
+  font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 14px 36px rgba(0, 123, 255, 0.2);
+  transition: 0.3s;
   text-decoration: none;
-  text-align: center;
 }
 
-.btn.primary {
+.primary {
   background: linear-gradient(135deg, #007bff, #00b7ff);
   color: white;
 }
 
-.btn.secondary {
+.primary:hover {
+  transform: translateY(-4px);
+}
+
+.secondary {
   background: white;
   border: 2px solid #007bff;
   color: #007bff;
 }
 
-.btn.secondary:hover {
-  background: #f0f8ff;
+.secondary:hover {
+  background: #007bff;
+  color: white;
+  transform: translateY(-4px);
 }
 
-.hero-preview {
-  max-width: 550px;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+.hero-image img {
+  width: 500px;
+  border-radius: 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
 }
 
+/* Features */
 .features {
   display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  margin-top: 80px;
-  flex-wrap: wrap;
+  justify-content: center;
+  gap: 60px;
+  padding: 80px 70px;
+  background: white;
 }
 
 .feature {
-  flex: 1;
-  background: white;
-  padding: 40px;
-  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 30px;
+  padding: 30px;
   text-align: center;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
 
 .feature:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px);
 }
 
 .feature img {
   width: 60px;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .feature h3 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: #007bff;
+  margin-bottom: 12px;
+  background: linear-gradient(to right, #007bff, #00b7ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .feature p {
-  color: #555;
+  color: #666;
   font-size: 1rem;
+}
+
+@media (max-width: 1200px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    gap: 50px;
+  }
+
+  .hero-image img {
+    width: 90%;
+  }
+
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 </style>
