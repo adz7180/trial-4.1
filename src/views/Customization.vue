@@ -61,7 +61,9 @@ export default {
       this.modelUrl = `/models/house${size}.glb`;
     },
     applyMaterial(material) {
-      this.$refs.sceneViewer?.applyMaterial(material);
+      if (this.$refs.sceneViewer) {
+        this.$refs.sceneViewer.applyMaterial(material);
+      }
     }
   }
 };
